@@ -69,8 +69,21 @@ exports.createDocumentRequest = async (req, res) => {
   try {
     const data = req.body;
 
-    const branch = await Branch.findById(data.branch);
+    const uploadedFile = req.uploadedFile;
 
+    if (req.fileValidationError !== true) {
+      res.status(400).json({
+        status: "success",
+        data: {
+          message: "Yanlış dosya tipi",
+        },
+      });
+    }
+
+    let path = `/uploads/${uploadedFile}`;
+    data.fileUrl = path;
+
+    const branch = await Branch.findById(data.branch);
     data.branch = branch.title;
 
     const newRequest = await Request.create(data);

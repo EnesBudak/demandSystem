@@ -1,8 +1,10 @@
 const Request = require("../Models/supportRequestModel");
 const Unit = require("../Models/supportRequestUnitModel");
+const multer = require("multer");
 exports.getAllSupportRequest = async (req, res) => {
   try {
     const request = await Request.find({});
+
     res.status(201).json({
       status: "success",
       data: {
@@ -59,22 +61,34 @@ exports.deleteSupportRequest = async (req, res) => {
     });
   }
 };
+
 exports.createSupportRequest = async (req, res) => {
   try {
     const data = req.body;
+    const uploadedFile = req.uploadedFile;
 
+    if (req.fileValidationError !== true) {
+      res.status(400).json({
+        status: "success",
+        data: {
+          message: "Yanlış dosya tipi",
+        },
+      });
+    }
+
+    let path = `/uploads/${uploadedFile}`;
+    data.fileUrl = path;
     const unit = await Unit.findById(data.unit);
-   
+
     data.unit = unit.title;
     const newRequest = await Request.create(data);
-
-    // req.io.sockets.emit("newRequestInfo", newRequest);
     res.status(201).json({
       status: "success",
       data: {
         request: newRequest,
       },
     });
+    // req.io.sockets.emit("newRequestInfo", newRequest);
   } catch (err) {
     res.status(400).json({
       status: "fail",

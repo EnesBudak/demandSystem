@@ -23,6 +23,7 @@ const documentRequestSchema = new mongoose.Schema({
   },
   fileUrl: {
     type: String,
+    default: null,
   },
   identificationNumber: {
     type: String,

@@ -12,6 +12,7 @@ const supportRequestSchema = new mongoose.Schema({
 
   fileUrl: {
     type: String,
+    default: null,
   },
 
   unit: {
