@@ -18,6 +18,25 @@ exports.getAllStatus = async (req, res) => {
     });
   }
 };
+exports.getStatus = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const status = await Status.findById(id);
+    res.status(201).json({
+      status: "success",
+      data: {
+        status: status,
+      },
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: "fail",
+      data: {
+        message: err,
+      },
+    });
+  }
+};
 
 exports.updateStatus = async (req, res) => {
   try {
@@ -40,6 +59,7 @@ exports.updateStatus = async (req, res) => {
     });
   }
 };
+
 exports.deleteStatus = async (req, res) => {
   try {
     const id = req.params.id;

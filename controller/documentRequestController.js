@@ -1,5 +1,6 @@
 const Request = require("../Models/documentRequestModel");
-
+const Branch = require("../Models/documentRequestBranchModel");
+const Status = require("../Models/requestStatusModel");
 exports.getAllDocumentRequest = async (req, res) => {
   try {
     const request = await Request.find({});
@@ -23,6 +24,11 @@ exports.updateDocumentRequest = async (req, res) => {
   try {
     const id = req.params.id;
     const updateData = req.body;
+
+    const branch = await Branch.findById(updateData.branch);
+    const status = await Status.findById(updateData.status);
+    updateData.status = status.title;
+    updateData.branch = branch.title;
     const request = await Request.findByIdAndUpdate(id, updateData, {
       new: true,
       runValidators: true,
@@ -62,6 +68,11 @@ exports.deleteDocumentRequest = async (req, res) => {
 exports.createDocumentRequest = async (req, res) => {
   try {
     const data = req.body;
+
+    const branch = await Branch.findById(data.branch);
+
+    data.branch = branch.title;
+
     const newRequest = await Request.create(data);
     res.status(201).json({
       status: "success",

@@ -40,6 +40,10 @@ const documentRequestSchema = new mongoose.Schema({
     type: String,
     required: [true, "Lütfen branş türü seçiniz!"],
   },
+  status: {
+    type: String,
+    default: "5fb801c405c3c187143964af",
+  },
 });
 
 const documentRequest = mongoose.model(

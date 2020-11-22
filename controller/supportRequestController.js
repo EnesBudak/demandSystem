@@ -1,5 +1,5 @@
 const Request = require("../Models/supportRequestModel");
-
+const Unit = require("../Models/supportRequestUnitModel");
 exports.getAllSupportRequest = async (req, res) => {
   try {
     const request = await Request.find({});
@@ -62,8 +62,13 @@ exports.deleteSupportRequest = async (req, res) => {
 exports.createSupportRequest = async (req, res) => {
   try {
     const data = req.body;
+
+    const unit = await Unit.findById(data.unit);
+   
+    data.unit = unit.title;
     const newRequest = await Request.create(data);
-    req.io.sockets.emit("newRequestInfo", newRequest);
+
+    // req.io.sockets.emit("newRequestInfo", newRequest);
     res.status(201).json({
       status: "success",
       data: {

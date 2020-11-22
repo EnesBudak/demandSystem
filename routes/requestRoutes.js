@@ -38,6 +38,7 @@ router
 
 router
   .route("/unit/:id")
+  .get(unitController.getUnit)
   .patch(unitController.updateUnit)
   .delete(unitController.deleteUnit);
 
@@ -48,6 +49,7 @@ router
 
 router
   .route("/branch/:id")
+  .get(branchController.getBranch)
   .patch(branchController.updateBranch)
   .delete(branchController.deleteBranch);
 
@@ -58,6 +60,7 @@ router
 
 router
   .route("/requestStatus/:id")
+  .get(statusController.getStatus)
   .patch(statusController.updateStatus)
   .delete(statusController.deleteStatus);
 

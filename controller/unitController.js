@@ -19,6 +19,26 @@ exports.getAllUnit = async (req, res) => {
   }
 };
 
+exports.getUnit = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const unit = await Unit.findById(id);
+    res.status(201).json({
+      status: "success",
+      data: {
+        unit: unit,
+      },
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: "fail",
+      data: {
+        message: err,
+      },
+    });
+  }
+};
+
 exports.updateUnit = async (req, res) => {
   try {
     const id = req.params.id;

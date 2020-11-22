@@ -19,6 +19,26 @@ exports.getAllBranch = async (req, res) => {
   }
 };
 
+exports.getBranch = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const branch = await Branch.findById(id);
+    res.status(201).json({
+      status: "success",
+      data: {
+        branch: branch,
+      },
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: "fail",
+      data: {
+        message: err,
+      },
+    });
+  }
+};
+
 exports.updateBranch = async (req, res) => {
   try {
     const id = req.params.id;
