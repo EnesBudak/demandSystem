@@ -15,8 +15,6 @@ Projenin içerdikleri:
 
 ### Kullanılan Teknolojiler
 
-Dillinger uses a number of open source projects to work properly:
-
 - [Express] - fast node.js network app framework
 - [Mongoose] - elegant mongodb object modeling for node.js
 - [Socket.io] - FEATURING THE FASTEST AND MOST RELIABLE REAL-TIME ENGINE
